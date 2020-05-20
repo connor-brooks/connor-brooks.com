@@ -1,0 +1,13 @@
+{% with title=posts_title %}
+{% include 'top.html' %}
+{% endwith %}
+
+<h1>{{ posts_title }}</h1>
+<ul>
+{% for post in posts %}
+<li><a href="/{{ post.path }}">
+  {{ post.title }}
+  </a></li>
+{% endfor %}
+</ul>
+{% include 'tail.html' %}

@@ -1,0 +1,32 @@
+{% with title="Connor Brooks" %}
+{% include 'top.html' %}
+{% endwith %}
+
+<h1>Connor Brooks </h1>
+<h2>Contact</h2>
+<ul>
+  <li><a href="mailto:mail@connor-brooks.com">Email</a></li>
+  <li><a href="github.com/connor-brooks/">GitHub</a></li>
+  <li><a href="/static/files/connor-brooks.asc">PGP Key</a></li>
+  <li><a href="/static/files/connor-brooks-cv.pdf">CV</a></li>
+</ul>
+
+<h2>Projects</h2>
+<ul>
+  {% for project in projects %}
+  <li><a href="{{project.path}}"> {{ project.title }}</a></li>
+  {% endfor %}
+  <li><a href="{{url_for('projects')}}"><small>Read more...</small></a></li>
+</ul>
+
+<h2>Blog Posts</h2>
+<ul>
+  {% for post in posts %}
+  <li><a href="{{ post.path }}"> {{ post.title }} </a></li>
+  {% endfor %}
+  <li><a href="{{url_for('blogs')}}"><small>Read more...</small></a></li>
+</ul>
+
+{% with hide_home = 'YES' %}
+{% include 'tail.html' %}
+{% endwith %}

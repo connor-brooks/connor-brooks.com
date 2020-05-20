@@ -1,0 +1,9 @@
+{% with title=post.title %}
+{% include 'top.html' %}
+{% endwith %}
+<h1>{{ post.title }}</h1>
+{% if with_date is defined %}
+<small>{{ post.date }}</small>
+{% endif %}
+{{ post.html|safe }}
+{% include 'tail.html' %}
