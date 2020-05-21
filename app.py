@@ -1,6 +1,7 @@
 import sys
 from flask import Flask, render_template
 from flask_flatpages import FlatPages
+from werkzeug.exceptions import HTTPException
 
 DEBUG = False
 FLATPAGES_AUTO_RELOAD = DEBUG
@@ -26,21 +27,26 @@ def get_page(dirName, postName):
     post = flatpages.get_or_404(path)
     return post
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('error.html', error="404 Not Found")
+@app.errorhandler(Exception)
+def error(e):
+    code = 500
+    errors = {
+            404 : "Not Found",
+            403 : "Forbidden",
+            410 : "Gone",
+            500 : "Internal Server Error"
+            }
+    msg = errors[code]
+    errorString = "" 
 
-@app.errorhandler(403)
-def page_not_found(e):
-    return render_template('error.html', error="403 Forbidden")
+    if isinstance(e, HTTPException):
+        code = e.code
+    if code in errors.keys():
+        msg = errors[code]
 
-@app.errorhandler(410)
-def page_not_found(e):
-    return render_template('error.html', error="410 Gone")
+    errorString = str(code) + " " + errors[code]
+    return render_template('error.html', error=errorString), code
 
-@app.errorhandler(500)
-def page_not_found(e):
-    return render_template('error.html', error="410 Internal Server Error")
 
 @app.route("/")
 def index():
