@@ -8,7 +8,7 @@ FLATPAGES_EXTENSION = '.md'
 FLATPAGES_ROOT = 'content'
 BLOG_DIR = 'blog'
 PROJECT_DIR = 'projects'
-HOMEPAGE_MAX_PAGE = 4
+HOME_ENTRY_LIMIT = 4
 
 app = Flask(__name__)
 flatpages = FlatPages(app)
@@ -44,8 +44,8 @@ def page_not_found(e):
 
 @app.route("/")
 def index():
-    blog_posts = get_pages(BLOG_DIR, orderBy='date', limit=4, isReversed=True)
-    project_pages = get_pages(PROJECT_DIR, limit=4, orderBy='importance')
+    blog_posts = get_pages(BLOG_DIR, orderBy='date', limit=HOME_ENTRY_LIMIT, isReversed=True)
+    project_pages = get_pages(PROJECT_DIR, limit=HOME_ENTRY_LIMIT, orderBy='importance')
     return render_template('index.html', posts=blog_posts, projects=project_pages)
 
 @app.route("/blog/")
