@@ -7,4 +7,4 @@ Many videos on YouTube are age restricted, meaning a Google account is required 
 
 ## Links
 * [Github](https://github.com/connor-brooks/BypassTube)
-* [BypassTube](#) (Currently unavailable)
+* [BypassTube](https://bypasstube.connor-brooks.com)
