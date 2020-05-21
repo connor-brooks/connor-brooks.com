@@ -16,9 +16,9 @@ app.config.from_object(__name__)
 
 def get_pages(dirName, orderBy, limit=None, isReversed=False):
     tmp = [p for p in flatpages if p.path.startswith(dirName)]
+    tmp.sort(key=lambda item:item[orderBy], reverse=isReversed)
     if limit != None:
         tmp = tmp[:limit]
-    tmp.sort(key=lambda item:item[orderBy], reverse=isReversed)
     return tmp
 
 def get_page(dirName, postName):

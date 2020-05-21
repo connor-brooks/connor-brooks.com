@@ -1,5 +1,4 @@
 title: µCrypt
-date: 2013-08-27
 importance: 2
 
 ![alt text](/static/images/projects/muCrypt.jpg)
