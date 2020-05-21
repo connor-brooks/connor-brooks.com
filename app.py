@@ -15,15 +15,15 @@ app = Flask(__name__)
 flatpages = FlatPages(app)
 app.config.from_object(__name__)
 
-def get_pages(dirName, orderBy, limit=None, isReversed=False):
-    tmp = [p for p in flatpages if p.path.startswith(dirName)]
-    tmp.sort(key=lambda item:item[orderBy], reverse=isReversed)
+def get_pages(dir_name, order_by, limit=None, is_reversed=False):
+    tmp = [p for p in flatpages if p.path.startswith(dir_name)]
+    tmp.sort(key=lambda item:item[order_by], reverse=is_reversed)
     if limit != None:
         tmp = tmp[:limit]
     return tmp
 
-def get_page(dirName, postName):
-    path = '{}/{}'.format(dirName, postName)
+def get_page(dir_name, post_name):
+    path = '{}/{}'.format(dir_name, post_name)
     post = flatpages.get_or_404(path)
     return post
 
@@ -37,21 +37,21 @@ def error(e):
             500 : "Internal Server Error"
             }
     msg = errors[code]
-    errorString = "" 
+    error_string = "" 
 
     if isinstance(e, HTTPException):
         code = e.code
     if code in errors.keys():
         msg = errors[code]
 
-    errorString = str(code) + " " + errors[code]
-    return render_template('error.html', error=errorString), code
+    error_string = '{} {}'.format(str(code), errors[code])
+    return render_template('error.html', error=error_string), code
 
 
 @app.route("/")
 def index():
-    blog_posts = get_pages(BLOG_DIR, orderBy='date', limit=HOME_ENTRY_LIMIT, isReversed=True)
-    project_pages = get_pages(PROJECT_DIR, limit=HOME_ENTRY_LIMIT, orderBy='importance')
+    blog_posts = get_pages(BLOG_DIR, order_by='date', limit=HOME_ENTRY_LIMIT, is_reversed=True)
+    project_pages = get_pages(PROJECT_DIR, limit=HOME_ENTRY_LIMIT, order_by='importance')
     return render_template('index.html', posts=blog_posts, projects=project_pages)
 
 @app.route("/blog/")
@@ -68,7 +68,7 @@ def blog(name):
 @app.route("/projects/")
 def projects():
     posts_title = "Projects"
-    project_pages = get_pages(PROJECT_DIR, orderBy='importance')
+    project_pages = get_pages(PROJECT_DIR, order_by='importance')
     return render_template('posts.html', posts_title=posts_title, posts=project_pages)
 
 @app.route('/projects/<name>/')
