@@ -51,13 +51,13 @@ def error(e):
 @app.route("/")
 def index():
     blog_posts = get_pages(BLOG_DIR, order_by='date', limit=HOME_ENTRY_LIMIT, is_reversed=True)
-    project_pages = get_pages(PROJECT_DIR, limit=HOME_ENTRY_LIMIT, order_by='importance')
+    project_pages = get_pages(PROJECT_DIR, order_by='importance', limit=HOME_ENTRY_LIMIT)
     return render_template('index.html', posts=blog_posts, projects=project_pages)
 
 @app.route("/blog/")
 def blogs():
     posts_title = "Blog Posts"
-    blog_posts = get_pages(BLOG_DIR, 'date');
+    blog_posts = get_pages(BLOG_DIR, order_by='date');
     return render_template('posts.html', posts_title=posts_title, posts=blog_posts)
 
 @app.route('/blog/<name>/')
