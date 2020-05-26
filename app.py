@@ -61,6 +61,7 @@ def blogs():
     return render_template('posts.html', posts_title=posts_title, posts=blog_posts)
 
 @app.route('/blog/<name>/')
+@app.route('/blog/<name>.html')
 def blog(name):
     post = get_page(BLOG_DIR, name)
     return render_template('post.html', post=post, with_date=True)
@@ -72,6 +73,7 @@ def projects():
     return render_template('posts.html', posts_title=posts_title, posts=project_pages)
 
 @app.route('/projects/<name>/')
+@app.route('/projects/<name>.html')
 def project(name):
     post = get_page(PROJECT_DIR, name)
     return render_template('post.html', post=post)
